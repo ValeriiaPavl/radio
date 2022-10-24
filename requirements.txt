@@ -1,0 +1,15 @@
+SQLAlchemy~=1.4.27
+aiohttp~=3.7.4.post0
+aiopg~=1.3.3
+mutagen~=1.45.1
+PyYAML~=6.0
+Jinja2~=3.0.3
+aiohttp_jinja2 ~=1.5
+# for argon2 working it is necessary to install:
+setuptools
+cffi
+argon2-cffi
+argon2-bindings
+
+
+argon2~=0.1.10

@@ -1,0 +1,81 @@
+<body>
+<h1> Welcome to TroyFm Radio! </h1>
+<div class="roundbox">
+    <div
+        class="mounthead"><h3 class="mount">Mount Point /mpd.ogg</h3>
+        <div
+            class="right"></div>
+    </div>
+    <div
+        class="mountcont">
+        <div class="audioplayer">
+            <audio id="radio" controls onpause="stream_paused()"
+                   preload="none">
+                <source src="http://localhost:8000/mpd.ogg" type="application/ogg">
+            </audio>
+        </div>
+        <table class="yellowkeys">
+            <tbody>
+            <tr>
+                <td>Stream Name:</td>
+                <td>TroyFm Stream</td>
+            </tr>
+            <tr>
+                <td>Stream Description:</td>
+                <td>Rock, Metal and Bullshit</td>
+            </tr>
+            <tr>
+                <td>Content Type:</td>
+                <td>application/ogg</td>
+            </tr>
+            <tr>
+                <td>Bitrate:</td>
+                <td class="streamstats">max</td>
+            </tr>
+            <tr>
+                <td>Genre:</td>
+                <td class="streamstats">various</td>
+            </tr>
+            <tr>
+                <td>Currently playing:</td>
+                <td><p id="trackname">None</p></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div id="footer">
+</div>
+
+
+<script>
+
+var player = document.getElementById('radio');
+var stream = 'http://localhost:8000/mpd.ogg';
+
+function stream_paused() {
+	change_url();
+}
+
+function change_url() {
+	random_number = Math.floor((Math.random() * 10000000) + 1);
+    new_link = stream + '?nocache=' + random_number.toString();
+    player.setAttribute('src', new_link);
+}
+
+change_url();
+</script>
+
+<script>
+<!--var clientTrack = document.getElementById('trackname');-->
+
+const clientTrack = (text) => {
+        document.getElementById('trackname').innerHTML = `<span style="color: green">${text}</span><br>`;
+      };
+      const socket = new WebSocket('ws://' + location.host + '/track');
+      socket.addEventListener('message', ev => {
+        clientTrack(ev.data);
+      });
+
+</script>
+</body>
